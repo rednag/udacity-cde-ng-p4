@@ -256,8 +256,8 @@ data "aws_iam_policy_document" "assume_role_policy" {
 # CodeBuild Resources
 ######################
 # Create a CodeBuild project
-resource "aws_codebuild_project" "codebuild_frontend" {
-  name          = "frontend"
+resource "aws_codebuild_project" "codebuild" {
+  name          = "udacity"
   description   = "Udacity CodeBuild project"
   service_role  = aws_iam_role.codebuild.arn
   build_timeout = 60
@@ -275,36 +275,7 @@ resource "aws_codebuild_project" "codebuild_frontend" {
 
   source {
     type            = "GITHUB"
-    location        = "https://github.com/rednag/udacity-cde-ng-p4-frontend.git"
-    git_clone_depth = 1
-    buildspec       = "buildspec.yml"
-  }
-
-  cache {
-    type = "NO_CACHE"
-  }
-}
-
-resource "aws_codebuild_project" "codebuild_backend" {
-  name          = "backend"
-  description   = "Udacity CodeBuild project"
-  service_role  = aws_iam_role.codebuild.arn
-  build_timeout = 60
-  artifacts {
-    type = "NO_ARTIFACTS"
-  }
-
-  environment {
-    compute_type                = "BUILD_GENERAL1_SMALL"
-    image                       = "aws/codebuild/standard:5.0"
-    type                        = "LINUX_CONTAINER"
-    image_pull_credentials_type = "CODEBUILD"
-    privileged_mode             = true
-  }
-
-  source {
-    type            = "GITHUB"
-    location        = "https://github.com/rednag/udacity-cde-ng-p4-backend.git"
+    location        = "https://github.com/rednag/udacity-cde-ng-p4.git"
     git_clone_depth = 1
     buildspec       = "buildspec.yml"
   }
@@ -341,12 +312,12 @@ resource "aws_iam_role_policy_attachment" "codebuild" {
 ####################
 # Github Action role
 ####################
-resource "aws_iam_user" "github_action_userx" {
-  name = "github-action-userx"
+resource "aws_iam_user" "github_action_user" {
+  name = "github-action-user"
 }
 
 resource "aws_iam_user_policy" "github_action_user_permission" {
-  user   = aws_iam_user.github_action_userx.name
+  user   = aws_iam_user.github_action_user.name
   policy = data.aws_iam_policy_document.github_policy.json
 }
 

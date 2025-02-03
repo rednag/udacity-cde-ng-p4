@@ -14,5 +14,5 @@ output "cluster_version" {
 }
 
 output "github_action_user_arn" {
-  value = aws_iam_user.github_action_userx.arn
+  value = aws_iam_user.github_action_user.arn
 }

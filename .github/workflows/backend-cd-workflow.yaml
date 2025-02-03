@@ -17,11 +17,12 @@ jobs:
           python-version: "3.10"
 
       - run: |
+          cd starter/backend
           python -m pip install --upgrade pip
           python -m pip install pipenv
           python -m pip install flake8
 
-      - run: pipenv run lint
+      - run: cd starter/backend && pipenv run lint
   
   testing:
     runs-on: ubuntu-latest
@@ -33,11 +34,13 @@ jobs:
           python-version: "3.10"
 
       - run: |
+          cd starter/backend
           python -m pip install --upgrade pip
           python -m pip install pipenv
           python -m pip install flake8
 
       - run: |
+          cd starter/backend
           pipenv install pytest
           pipenv run test
 
@@ -57,16 +60,17 @@ jobs:
       - env:
           REPO_NAME: backend  
         run: |
+          cd starter/backend
           docker build --build-arg REACT_APP_MOVIE_API_URL="http://a9039c49599db41549dc1dbd1cb9c9f9-742795800.us-east-1.elb.amazonaws.com" -t backend .
-          docker tag docker.io/library/backend 099629925974.dkr.ecr.us-east-1.amazonaws.com/$REPO_NAME:${GITHUB_SHA::6}
-          docker push 099629925974.dkr.ecr.us-east-1.amazonaws.com/$REPO_NAME:${GITHUB_SHA::6}
+          docker tag docker.io/library/backend 486494056512.dkr.ecr.us-east-1.amazonaws.com/$REPO_NAME:${GITHUB_SHA::6}
+          docker push 486494056512.dkr.ecr.us-east-1.amazonaws.com/$REPO_NAME:${GITHUB_SHA::6}
 
       - run: aws eks --region us-east-1 update-kubeconfig --name cluster
       - env:
           IMAGE_TAG: latest
           REPO_NAME: backend
         run: |
-          cd k8s
+          cd starter/backend/k8s
           aws eks --region us-east-1 update-kubeconfig --name cluster
-          kustomize edit set image 099629925974.dkr.ecr.us-east-1.amazonaws.com/$REPO_NAME:${GITHUB_SHA::6}
+          kustomize edit set image 486494056512.dkr.ecr.us-east-1.amazonaws.com/$REPO_NAME:${GITHUB_SHA::6}
           kustomize build . | kubectl apply -f - --validate=false
