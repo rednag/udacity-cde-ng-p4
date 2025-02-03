@@ -56,8 +56,8 @@ jobs:
           REPO_NAME: frontend  
         run: |
           cd starter/frontend
-          docker build --build-arg REACT_APP_MOVIE_API_URL="a9039c49599db41549dc1dbd1cb9c9f9-742795800.us-east-1.elb.amazonaws.com" -t frontend .
-          docker tag docker.io/library/frontend 486494056512.dkr.ecr.us-east-1.amazonaws.com/$REPO_NAME:${GITHUB_SHA::6}
+          docker build --build-arg REACT_APP_MOVIE_API_URL="https://k8s-default-frontend-8592d7a437-6860f3726eb211ff.elb.us-east-1.amazonaws.com" -t $REPO_NAME:${GITHUB_SHA::6} .
+          docker tag $REPO_NAME:${GITHUB_SHA::6} 486494056512.dkr.ecr.us-east-1.amazonaws.com/$REPO_NAME:${GITHUB_SHA::6}
           docker push 486494056512.dkr.ecr.us-east-1.amazonaws.com/$REPO_NAME:${GITHUB_SHA::6}
 
       - run: aws eks --region us-east-1 update-kubeconfig --name cluster
