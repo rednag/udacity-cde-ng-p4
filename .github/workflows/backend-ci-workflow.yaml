@@ -1,4 +1,4 @@
-name: beckend-ci-workflow
+name: backend-ci-workflow
 
 on:
   workflow_dispatch:
