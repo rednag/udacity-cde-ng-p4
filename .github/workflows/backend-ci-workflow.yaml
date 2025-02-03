@@ -52,5 +52,5 @@ jobs:
       - uses: actions/checkout@v3
       - run: |
           cd starter/backend
-          docker build --t backend .
+          docker build -t backend .
         
