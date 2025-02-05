@@ -79,7 +79,7 @@ jobs:
           REPO_NAME: frontend  
         run: |
           cd starter/frontend
-          docker build --build-arg REACT_APP_MOVIE_API_URL="http://k8s-default-backend-fff60ece15-e848fcd9967e3aa0.elb.us-east-1.amazonaws.com" -t 217464997509.dkr.ecr.us-east-1.amazonaws.com/$REPO_NAME:${GITHUB_SHA::6} .
+          docker build --build-arg REACT_APP_MOVIE_API_URL="http://a23ffe0fa510e40e18d0fec452d8a55b-1448115086.us-east-1.elb.amazonaws.com" -t 217464997509.dkr.ecr.us-east-1.amazonaws.com/$REPO_NAME:${GITHUB_SHA::6} .
           docker push 217464997509.dkr.ecr.us-east-1.amazonaws.com/$REPO_NAME:${GITHUB_SHA::6}
 
       - env:

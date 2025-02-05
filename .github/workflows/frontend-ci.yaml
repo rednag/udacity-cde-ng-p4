@@ -72,6 +72,6 @@ jobs:
           cd starter/frontend
           npm ci
           npm run test
-          docker build --build-arg REACT_APP_MOVIE_API_URL="http://k8s-default-frontend-8592d7a437-6860f3726eb211ff.elb.us-east-1.amazonaws.com" -t frontend .
+          docker build --build-arg REACT_APP_MOVIE_API_URL="http://a23ffe0fa510e40e18d0fec452d8a55b-1448115086.us-east-1.elb.amazonaws.com" -t frontend .
 
       
