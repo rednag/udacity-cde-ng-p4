@@ -61,13 +61,13 @@ jobs:
           REPO_NAME: backend  
         run: |
           cd starter/backend
-          docker build -t 486494056512.dkr.ecr.us-east-1.amazonaws.com/$REPO_NAME:${GITHUB_SHA::6} .
-          docker push 486494056512.dkr.ecr.us-east-1.amazonaws.com/$REPO_NAME:${GITHUB_SHA::6}
+          docker build -t 217464997509.dkr.ecr.us-east-1.amazonaws.com/$REPO_NAME:${GITHUB_SHA::6} .
+          docker push 217464997509.dkr.ecr.us-east-1.amazonaws.com/$REPO_NAME:${GITHUB_SHA::6}
 
       - env:
           REPO_NAME: backend
         run: |
           cd starter/backend/k8s
           aws eks --region us-east-1 update-kubeconfig --name cluster
-          kustomize edit set image backend=486494056512.dkr.ecr.us-east-1.amazonaws.com/$REPO_NAME:${GITHUB_SHA::6}
+          kustomize edit set image backend=217464997509.dkr.ecr.us-east-1.amazonaws.com/$REPO_NAME:${GITHUB_SHA::6}
           kustomize build . | kubectl apply -f - --validate=false
