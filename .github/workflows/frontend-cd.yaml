@@ -1,4 +1,4 @@
-name: frontend-cd-workflow
+name: Frontend Continuous Deployment
 
 # Ensure the workflow runs on schedule (Sunday at 0:00) and on push to the main branch
 on:
@@ -17,6 +17,14 @@ jobs:
       - uses: actions/setup-node@v3
         with:
           node-version: latest
+          cache: 'npm'
+          cache-dependency-path: starter/frontend/package-lock.json
+      - uses: actions/cache@v3
+        with:
+          path: ~/.npm
+          key: ${{ runner.os }}-npm-cache-${{ hashFiles('**/package-lock.json') }}
+          restore-keys: |
+            ${{ runner.os }}-npm-cache-
       - run: |
          cd starter/frontend
          npm ci    
@@ -30,7 +38,14 @@ jobs:
       - uses: actions/setup-node@v3
         with:
           node-version: latest
-
+          cache: 'npm'
+          cache-dependency-path: starter/frontend/package-lock.json
+      - uses: actions/cache@v3
+        with:
+          path: ~/.npm
+          key: ${{ runner.os }}-npm-cache-${{ hashFiles('**/package-lock.json') }}
+          restore-keys: |
+            ${{ runner.os }}-npm-cache-
       - run: |
           cd starter/frontend
           npm ci
@@ -44,6 +59,14 @@ jobs:
       - uses: actions/setup-node@v3
         with:
           node-version: latest
+          cache: 'npm'
+          cache-dependency-path: starter/frontend/package-lock.json
+      - uses: actions/cache@v3
+        with:
+          path: ~/.npm
+          key: ${{ runner.os }}-npm-cache-${{ hashFiles('**/package-lock.json') }}
+          restore-keys: |
+            ${{ runner.os }}-npm-cache-
       - uses: aws-actions/configure-aws-credentials@v2
         with:
           aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
